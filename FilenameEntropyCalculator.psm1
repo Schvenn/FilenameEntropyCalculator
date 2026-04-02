@@ -174,6 +174,8 @@ if ($buffer.Count -ge $flushSize) {$buffer | Add-Content -Path $logFile; $buffer
 if (($buffer.Count -gt 0) -and $writetofile) {$buffer | Add-Content -Path $logFile; $buffer.Clear()}
 Write-Host -f yellow ("-"*100); Write-Host ""}
 
+Export-ModuleMember -function filenameentropycalculator
+
 # Helptext.
 
 <#
