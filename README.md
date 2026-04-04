@@ -1,7 +1,7 @@
 # Overview
 This module recursively locates high entropy filenames within the specified path, providing output to screen, file or both. This is particularly useful for finding filenames written by malware.
 
-    Usage: filenameentropycalculator "path" <threshold #> <throttlelimit #> <-file> <-quiet> <-help>
+    Usage: FindEntropy "path" <threshold #> <throttlelimit #> <-file> <-quiet> <-help>
 
 Entropy Score Calculation:
 
