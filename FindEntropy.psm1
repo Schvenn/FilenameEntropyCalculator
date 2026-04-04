@@ -1,11 +1,11 @@
 # Recursively run the calculator over an entire path.
-function filenameentropycalculator ([string]$Path, [double]$Threshold = 11, [int]$ThrottleLimit = 8, [switch]$file, [switch]$quiet, [switch]$help) {# Find suspicious filenames.
+function findentropy ([string]$Path, [double]$Threshold = 11, [int]$ThrottleLimit = 8, [switch]$file, [switch]$quiet, [switch]$help) {# Find suspicious filenames.
 # Entropy calculation variables:
 $enumerated = 0; $scored = 0; $sum = 0.0; $min = [double]::MaxValue; $max = [double]::MinValue
 # File write variables:
 $writeToFile = $file -or $quiet; $logFile = ".\HighEntropyFilenames.txt"; $buffer = New-Object System.Collections.Generic.List[string]; $flushSize = 50
 
-if ((-not $path) -and (-not $help)) {Write-Host -n -f cyan "`nUsage: filenameentropycalculator `"path`" <threshold #> <throttlelimit #> <-file> <-quiet> <-help>`n`n"; return}
+if ((-not $path) -and (-not $help)) {Write-Host -n -f cyan "`nUsage: findentropy `"path`" <threshold #> <throttlelimit #> <-file> <-quiet> <-help>`n`n"; return}
 
 # Modify fields sent to it with proper word wrapping.
 function wordwrap ($field, $maximumlinelength) {if ($null -eq $field) {return $null}
@@ -174,7 +174,7 @@ if ($buffer.Count -ge $flushSize) {$buffer | Add-Content -Path $logFile; $buffer
 if (($buffer.Count -gt 0) -and $writetofile) {$buffer | Add-Content -Path $logFile; $buffer.Clear()}
 Write-Host -f yellow ("-"*100); Write-Host ""}
 
-Export-ModuleMember -function filenameentropycalculator
+Export-ModuleMember -function findentropy
 
 # Helptext.
 
@@ -182,7 +182,7 @@ Export-ModuleMember -function filenameentropycalculator
 ## Overview
 This module recursively locates high entropy filenames within the specified path, providing output to screen, file or both. This is particularly useful for finding filenames written by malware.
 
-Usage: filenameentropycalculator "path" <threshold #> <throttlelimit #> <-file> <-quiet> <-help>
+Usage: findentropy "path" <threshold #> <throttlelimit #> <-file> <-quiet> <-help>
 
 Entropy Score Calculation:
 
